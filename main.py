@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -19,4 +19,17 @@ def itemGet(item):
 def params(a: int, b: int):
     return f'a is {a}, b is {b}'
 
+
+class postAnswer(BaseModel):
+    title: str
+    description: str
+
+
+class postRequest(BaseModel):
+    title: str
+
+
+@app.post('/post', response_model=postAnswer)
+def request(input: postRequest):
+    return postAnswer(title=input, description=f'description for {input}')
 
