@@ -6,5 +6,5 @@ app = FastAPI()
 
 @app.get('/')
 def deafult():
-    return app.state
+    return "Hello!"
 
