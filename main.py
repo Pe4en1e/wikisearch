@@ -15,8 +15,8 @@ def itemGet(item):
     return 'Item is ' + item
 
 
-@app.get('/querry')
+@app.get('/query')
 def params(a: int, b: int):
-    return f'a is {a}\nb is {b}'
+    return f'a is {a}, b is {b}'
 
 
