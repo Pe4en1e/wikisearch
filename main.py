@@ -5,23 +5,25 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+import wikiworker
+
 app = FastAPI()
 
 
 @app.get('/')
 def deafult():
-    return "Hello!"
+    return "БВТ2304 Дубровин Александр"
 
 
 
-@app.get('/path/{item}')
-def itemGet(item):
-    return 'Item is ' + item
+@app.get('/path/{page}')
+def path(page):
+    return wikiworker.getSummary(page)
 
 
 @app.get('/query')
-def params(a: int, b: int):
-    return f'a is {a}, b is {b}'
+def query(page: str):
+    return f'Looking for {page}'
 
 
 class postAnswer(BaseModel):
