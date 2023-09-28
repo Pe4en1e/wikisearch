@@ -21,7 +21,7 @@ def path(page: str):
     return wikiworker.getSummary(page, None)
 
 
-@app.get('/query', description='Так же возвращает резюме статьи, но можно указать кол-во предложений ')
+@app.get('/query', description='Возвращает резюме статьи, можно указать кол-во предложений ')
 def query(page: str, sent: int):
     return wikiworker.getSummary(page, sent)
 
@@ -36,7 +36,7 @@ class WikiInput(BaseModel):
     title: str
 
 
-@app.post('/post', response_model=WikiAnswer, description='POST запрос, возвращает название, полное содержание и ссылку на статью')
+@app.post('/post', response_model=WikiAnswer, description='Возвращает название, полное содержание и ссылку на статью')
 def request(input: WikiInput):
     wikipage = wikiworker.getPage(input.title)
     return WikiAnswer(
