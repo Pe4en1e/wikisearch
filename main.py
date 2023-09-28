@@ -31,5 +31,5 @@ class postRequest(BaseModel):
 
 @app.post('/post', response_model=postAnswer)
 def request(input: postRequest):
-    return postAnswer(title=input, description=f'description for {input}')
+    return postAnswer(title=input.title, description=f'description for {input.title}')
 
