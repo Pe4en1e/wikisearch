@@ -2,17 +2,17 @@
 
 import wikipedia
 
-# Поиск с учетом ошибок и возврат первой статьи
-def search(name):
-    return wikipedia.search(wikipedia.suggest(name))
 
 # Извлечение резюме
-def getSummary(name):
-    return wikipedia.summary(search(name))
+def getSummary(name, sent):
+    if sent:
+        return wikipedia.summary(name, sentences=sent)
+    else:
+        return wikipedia.summary(name)
 
 # Получение статьи как объекта
 def getPage(name):
-    return wikipedia.page(search(name))
+    return wikipedia.page(name)
 
 # Получение названия статьи
 def getTitle(name):
@@ -26,3 +26,6 @@ def getContent(name):
 def getUrl(name):
     return getPage(name).url
 
+
+
+print(getSummary('Python lang', 1))

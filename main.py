@@ -16,26 +16,32 @@ def deafult():
 
 
 
-@app.get('/path/{page}')
-def path(page):
-    return wikiworker.getSummary(page)
+@app.get('/path/{page}', description='Возвращает резюме статьи')
+def path(page: str):
+    return wikiworker.getSummary(page, None)
 
 
-@app.get('/query')
-def query(page: str):
-    return f'Looking for {page}'
+@app.get('/query', description='Так же возвращает резюме статьи, но можно указать кол-во предложений ')
+def query(page: str, sent: int):
+    return wikiworker.getSummary(page, sent)
 
 
-class postAnswer(BaseModel):
+class WikiAnswer(BaseModel):
     title: str
-    description: str
+    content: str
+    link: str
 
 
-class postRequest(BaseModel):
+class WikiInput(BaseModel):
     title: str
 
 
-@app.post('/post', response_model=postAnswer)
-def request(input: postRequest):
-    return postAnswer(title=input.title, description=f'description for {input.title}')
+@app.post('/post', response_model=WikiAnswer, description='POST запрос, возвращает название, полное содержание и ссылку на статью')
+def request(input: WikiInput):
+    wikipage = wikiworker.getPage(input.title)
+    return WikiAnswer(
+        title=wikiworker.getTitle(wikipage),
+        content=wikiworker.getContent(wikipage),
+        link=wikiworker.getUrl(wikipage)
+    )
 
