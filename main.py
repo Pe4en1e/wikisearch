@@ -19,7 +19,7 @@ def path(page: str):
 
 # Querry
 @app.get('/query', description='Возвращает резюме статьи, можно указать кол-во предложений и язык')
-def query(page: str, sent: int):
+def query(page: str, sent: int = None):
     return wikiworker.getSummary(page, sent)
 
 # Формирование тела ответа
