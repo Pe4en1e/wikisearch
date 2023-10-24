@@ -1,6 +1,3 @@
-# 
-# 91.239.148.59
-# 
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -21,7 +18,7 @@ def path(page: str):
     return wikiworker.getSummary(page, None)
 
 # Querry
-@app.get('/query', description='Возвращает резюме статьи, можно указать кол-во предложений ')
+@app.get('/query', description='Возвращает резюме статьи, можно указать кол-во предложений и язык')
 def query(page: str, sent: int):
     return wikiworker.getSummary(page, sent)
 
@@ -44,4 +41,5 @@ def request(input: WikiInput):
         content=wikiworker.getContent(wikipage),
         link=wikiworker.getUrl(wikipage)
     )
+
 

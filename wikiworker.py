@@ -27,5 +27,3 @@ def getUrl(name):
     return getPage(name).url
 
 
-
-print(getSummary('Python lang', 1))
